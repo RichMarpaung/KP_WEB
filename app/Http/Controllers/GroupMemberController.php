@@ -27,7 +27,7 @@ class GroupMemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGroupMemberRequest $request)
+    public function store()
     {
         //
     }
@@ -35,7 +35,7 @@ class GroupMemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(GroupMember $groupMember)
+    public function show()
     {
         //
     }
@@ -43,7 +43,7 @@ class GroupMemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(GroupMember $groupMember)
+    public function edit()
     {
         //
     }
@@ -51,7 +51,7 @@ class GroupMemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGroupMemberRequest $request, GroupMember $groupMember)
+    public function update()
     {
         //
     }
@@ -59,7 +59,7 @@ class GroupMemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(GroupMember $groupMember)
+    public function destroy()
     {
         //
     }

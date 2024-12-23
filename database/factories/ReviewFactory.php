@@ -25,7 +25,7 @@ class ReviewFactory extends Factory
             'coment' => $this->faker->sentence(20),
             'pic' => $this->faker->imageUrl(200, 150, 'places', true, 'Faker'),
             'user_id' =>2,
-            'place_id' => $this->faker->numberBetween(1, 50),
+            'place_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

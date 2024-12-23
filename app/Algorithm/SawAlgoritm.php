@@ -6,8 +6,8 @@ class SawAlgorithm
 {
     public static function applySAW($places)
 {
-    $maxRating = $places->max('rating');         // Rating: semakin besar semakin baik (manfaat)
-    $minDistance = $places->min('distance');     // Distance: semakin kecil semakin baik (biaya)
+    $maxRating = $places->max('rating');         // Rating
+    $minDistance = $places->min('distance');     // Jarak
 
     // Normalisasi data
     $normalizedPlaces = $places->map(function ($place) use ($maxRating, $minDistance) {

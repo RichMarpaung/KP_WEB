@@ -11,7 +11,7 @@
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/Logo.png') }}">
 
 
     <link href="{{ asset('assets/libs/starability/starability-css/starability-all.css') }}" rel="stylesheet" type="text/css" />
@@ -37,7 +37,7 @@
                         </button>
                     </li>
                     <li class="mx-3 welcome-text">
-                        <h3 class="mb-0 fw-bold text-truncate">Hello, James!</h3>
+                        <h3 class="mb-0 fw-bold text-truncate">Hello, {{ Auth::user()->name }}!</h3>
                     </li>
                 </ul>
                 <ul class="topbar-item list-unstyled d-inline-flex align-items-center mb-0">
@@ -49,18 +49,20 @@
                     </li>
                     <li class="dropdown topbar-item">
                         <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#"
-                            role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="" class="thumb-lg rounded-circle">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end py-0">
-                            <div class="d-flex align-items-center dropdown-item py-2 bg-secondary-subtle">
-                                <div class="flex-shrink-0">
-                                    <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt=""
-                                        class="thumb-md rounded-circle">
+                        role="button" aria-haspopup="false" aria-expanded="false">
+                        <i class="las la-user  thumb-lg rounded-circle"></i>
+                        {{-- <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="" class="thumb-lg rounded-circle"> --}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end py-0">
+                        <div class="d-flex align-items-center dropdown-item py-2 bg-secondary-subtle">
+                            <div class="flex-shrink-0">
+                                <i class="las la-user fs-18 me-1 align-text-bottom thumb-md rounded-circle"></i>
+                                    {{-- <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt=""
+                                        class="thumb-md rounded-circle"> --}}
                                 </div>
                                 <div class="flex-grow-1 ms-2 text-truncate align-self-center">
-                                    <h6 class="my-0 fw-medium text-dark fs-13">William Martin</h6>
-                                    <small class="text-muted mb-0">Front End Developer</small>
+                                    <h6 class="my-0 fw-medium text-dark fs-13">{{ Auth::user()->name }}</h6>
+                                    <small class="text-muted mb-0">{{ Auth::user()->role->name }}</small>
                                 </div><!--end media-body-->
                             </div>
                             <div class="dropdown-divider mt-0"></div>
@@ -75,8 +77,11 @@
                             <a class="dropdown-item" href="pages-faq.html"><i
                                     class="las la-question-circle fs-18 me-1 align-text-bottom"></i> Help Center</a>
                             <div class="dropdown-divider mb-0"></div>
-                            <a class="dropdown-item text-danger" href="auth-login.html"><i
-                                    class="las la-power-off fs-18 me-1 align-text-bottom"></i> Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="GET">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger my-1"><i
+                                    class="las la-power-off fs-18 me-1 align-text-bottom"></i>Log Out</button>
+                            </form>
                         </div>
                     </li>
                 </ul><!--end topbar-nav-->
@@ -89,11 +94,11 @@
         <div class="brand">
             <a href="index.html" class="logo">
                 <span>
-                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="logo-small" class="logo-sm">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="logo-small" class="logo-sm">
                 </span>
                 <span class="">
-                    <img src="{{ asset('assets/images/logo-light.png') }}" alt="logo-large" class="logo-lg logo-light">
-                    <img src="{{ asset('assets/images/logo-dark.png') }}" alt="logo-large" class="logo-lg logo-dark">
+                    <img src="{{ asset('assets/images/tulis2.png') }}"  alt="logo-large" class="logo-lg logo-light">
+                    <img src="{{ asset('assets/images/tulis2.png') }}" alt="logo-large" class="logo-lg logo-dark">
                 </span>
             </a>
         </div>
@@ -111,8 +116,59 @@
                         </small> -->
                             <span>Main Menu</span>
                         </li>
+                        @if (Auth::user()->role->name === 'admin')
                         <li class="nav-item">
-                            <a class="nav-link" href="/landing" role="button" aria-expanded="false"
+                            <a class="nav-link collapsed" href="/admin" role="button" aria-expanded="false" aria-controls="sidebarMaps">
+                                <i class="iconoir-home menu-icon"></i>
+                                <span>Dashboard</span>
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sidebarApplications" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApplications">
+                                <i class="iconoir-view-grid menu-icon"></i>
+                                <span>Manajemen Data</span>
+                            </a>
+                            <div class="collapse " id="sidebarApplications">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#sidebarAnalytics" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAnalytics">
+                                            <span>Manajemen Tempat</span>
+                                        </a>
+                                        <div class="collapse " id="sidebarAnalytics">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a href="{{ route('admin.place.list') }}" class="nav-link ">List Tempat</a>
+                                                </li><!--end nav-item-->
+                                                <li class="nav-item">
+                                                    <a href="{{ route('admin.place.create') }}" class="nav-link ">Tambah Tempat</a>
+                                                </li><!--end nav-item-->
+                                            </ul><!--end nav-->
+                                        </div>
+                                    </li><!--end nav-item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#sidebarProjects" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProjects">
+                                            <span>Manajemen User</span>
+                                        </a>
+                                        <div class="collapse " id="sidebarProjects">
+                                            <ul class="nav flex-column">
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ route('admin.user.list') }}">List User</a>
+                                                </li><!--end nav-item-->
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ route('admin.user.create') }}">Tambah User</a>
+                                                </li><!--end nav-item-->
+                                            </ul><!--end nav-->
+                                        </div>
+                                    </li><!--end nav-item-->
+
+                                </ul><!--end nav-->
+                            </div><!--end startbarApplications-->
+                        </li>
+                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);" onclick="getUserLocation()" role="button" aria-expanded="false"
                                 aria-controls="sidebarDashboards">
                                 <i class="iconoir-home-simple menu-icon"></i>
                                 <span>Tempat KPI</span>
@@ -216,6 +272,50 @@
         <script src="{{ asset('assets/libs/jsvectormap/maps/world.js') }}"></script>
         <script src="{{ asset('assets/js/pages/index.init.js') }}"></script>
         <script src="{{ asset('assets/js/app.js') }}"></script>
+
+        <script>
+            // Fungsi untuk mendapatkan lokasi pengguna
+            function getUserLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(fetchPlaces, showError);
+                } else {
+                    alert("Geolokasi tidak didukung oleh browser ini.");
+                }
+            }
+
+            // Jika berhasil mendapatkan lokasi
+            function fetchPlaces(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Redirect ke route dengan parameter latitude dan longitude
+                const url = `/list-places?latitude=${latitude}&longitude=${longitude}`;
+                window.location.href = url;
+            }
+
+            // Jika gagal mendapatkan lokasi
+            function showError(error) {
+                let errorMessage = "";
+
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage = "Pengguna menolak permintaan lokasi.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage = "Informasi lokasi tidak tersedia.";
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage = "Permintaan lokasi memakan waktu terlalu lama.";
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        errorMessage = "Terjadi kesalahan tidak diketahui.";
+                        break;
+                }
+
+                alert(errorMessage);
+            }
+        </script>
+
 </body>
 <!--end body-->
 

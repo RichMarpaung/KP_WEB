@@ -12,7 +12,7 @@
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
                 <!-- App favicon -->
-                <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+                <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}">
 
 
          <!-- App css -->
@@ -31,8 +31,8 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="assets/images/logo-sm.png" height="26" alt="" class="me-2">
-                        <img src="assets/images/logo-dark.png" height="16" alt="">
+                        <img src="assets/images/Logo.png" height="50" alt="" class="me-2">
+                        {{-- <img src="assets/images/tulis2.png" height="16" alt=""> --}}
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -91,9 +91,9 @@
 
                                     </form>
 
-                                    <div class="text-center  mb-2">
+                                    {{-- <div class="text-center  mb-2">
                                         <p class="text-muted">Don't have an account ?  <a href="/register" class="text-primary ms-2">Free Resister</a></p>
-                                    </div>
+                                    </div> --}}
 
                                 </div><!--end card-body-->
                             </div><!--end card-->

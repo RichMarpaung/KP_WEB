@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
 use App\Models\Place;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class PlaceController extends Controller
@@ -35,10 +36,28 @@ class PlaceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
-    {
+    public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'photo' => 'nullable|image|file|max:2048|mimes:png,jpeg,jpg',
+        'description' => 'required|string',
+        'address' => 'required|string',
+    ]);
 
+    if ($request->hasFile('photo')) {
+        $validated['photo'] = $request->file('photo')->store('place/photo_path', 'public');
     }
+
+    Place::create([
+        'name' => $validated['name'],
+        'description' => $validated['description'],
+        'address' => $validated['address'],
+        'photo' => $validated['photo'] ?? null,
+    ]);
+
+    return redirect(route('admin.place.list'))->with('success', 'Place added successfully');
+}
 
     /**
      * Display the specified resource.
@@ -67,8 +86,12 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy($id)
     {
         //
+        $place = Place::find($id);
+        $place->delete();
+        return redirect()->route('admin.place.list')->with('success', 'User deleted successfully.');
+
     }
 }

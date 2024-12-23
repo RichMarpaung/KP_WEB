@@ -7,6 +7,7 @@ use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 use App\Models\Place;
 use App\Models\Review;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class ReviewController extends Controller
@@ -30,9 +31,22 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'place_id' => 'required',
+            'user_id' => 'required',
+            'coment' => 'required',
+            'pic' => 'nullable|image|file|max:2048|mimes:png,jpeg,jpg',
+            'rating' =>'required',
+        ]);
+        if($request->file('pic')){
+            $validated['pic'] = $request->file('pic')->store('review/pic_path','public');
+            // $validated['image'] = $request->file('image')->storeAs('product/image_path');
+        }
+
+        Review::create($validated);
+        return back();
     }
 
     /**

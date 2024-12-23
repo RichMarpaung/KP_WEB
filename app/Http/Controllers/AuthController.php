@@ -32,12 +32,8 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
-            return redirect()->intended('/dashboard');
-            // if ($user->role_id == 1 || $user->role_id ==3 ) {
-            //     return redirect()->intended('/admin');
-            // } else {
-            //     return redirect()->intended('/');
-            //     }
+            return redirect()->intended('/');
+
 
         }
 

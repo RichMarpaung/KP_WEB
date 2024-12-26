@@ -55,7 +55,7 @@
                         <div class="card">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="{{ $item->photo }}" class="img-fluid rounded-start"
+                                    <img src="{{ asset('storage/'.$item->photo) }}" class="img-fluid rounded-start"
                                         alt="...">
                                 </div><!--end col-->
                                 <div class="col-md-8">

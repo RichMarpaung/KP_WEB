@@ -27,6 +27,21 @@
                                     <label for="address" class="form-label">Address</label>
                                     <input class="form-control" type="text" id="address" placeholder="Enter address" name="address" required>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <label for="latitude" class="form-label">Latitude</label>
+                                    <input class="form-control" type="text" id="latitude" placeholder="Enter latitude" name="latitude" required>
+                                 </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <label for="longitude" class="form-label">Longitude</label>
+                                    <input class="form-control" type="text" id="longitude" placeholder="Enter longitude" name="longitude " required>
+                                 </div>
+                                    </div>
+
+                                </div>
 
                                 <div class="mb-3">
                                     <label for="photo" class="form-label">Image</label>

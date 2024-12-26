@@ -54,6 +54,7 @@ class PlaceController extends Controller
         'description' => $validated['description'],
         'address' => $validated['address'],
         'photo' => $validated['photo'] ?? null,
+        'total_review' => 0,
     ]);
 
     return redirect(route('admin.place.list'))->with('success', 'Place added successfully');

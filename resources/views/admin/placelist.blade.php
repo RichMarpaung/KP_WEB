@@ -34,8 +34,8 @@
                             <tbody>
                                 @foreach ($places as $item)
                                 <tr>
-                                 <td>@if ($item->pic)
-                                    <img src="{{ asset('storage/'.$item->image) }}" alt="Tidak Ada " style="max-width: 100px; max-height: 100px;">
+                                 <td>@if ($item->photo)
+                                    <img src="{{ asset('storage/'.$item->photo) }}" alt="Tidak Ada " style="max-width: 100px; max-height: 100px;">
 
                                 @else
                                 <h6>Tidak Ada Sampul</h6>

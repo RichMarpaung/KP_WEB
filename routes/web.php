@@ -15,28 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::get('/register', function () {
-//     return view('loginpage.register');
-// })->name('register');
-// Route::post('/register',[UserController::class, 'store'])->name('register.store');
-
-Route::get('/get-location', function () {
-    return view('lokasi01');
-});
-Route::get('/', function () {
-    return view('userpage.master');
-})->middleware('auth');
-Route::post('/nearest-places', [LocationController::class, 'nearestPlaces']);
-
-Route::get('/places', [LocationController::class, 'showPlacesView']);
-
-// Route untuk API (mengambil tempat terdekat)
-Route::post('/api/places-nearby', [LocationController::class, 'getNearestPlacesWithDistance']);
-
-// Route::get('/', [PlaceController::class, 'index'])->name('list_tempat')->middleware('auth');
-Route::get('/review/{id}', [ReviewController::class, 'show'])->name('review_tempat');
-Route::post('/store/coment', [ReviewController::class, 'store'])->name('store.coment');
-
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard')->middleware(['auth',MustAdmin::class]);
 
@@ -54,18 +32,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/delete/{id}/place',[PlaceController::class, 'destroy'])->name('place.delete')->middleware(['auth',MustAdmin::class]);
 })->middleware(['auth',MustAdmin::class]);
 
+
+
+#auth
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authlogin'])->name('login.post');
-
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
 
 
-
-
-
-// Route untuk menampilkan hasil ranking tempat
+// User Route
+// Route::get('/', function () {
+//     return view('userpage.dashboard');
+// })->middleware('auth');
+Route::get('/', [UserController::class, 'dashboard'])->middleware('auth');
 Route::get('/list-places', [LocationController::class, 'listplaces']);
 Route::get('/ranked-places', [LocationController::class, 'showRankedPlaces']);
+Route::get('/review/{id}', [ReviewController::class, 'show'])->name('review_tempat');
+Route::post('/store/coment', [ReviewController::class, 'store'])->name('store.coment');

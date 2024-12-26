@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\GroupMember;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -16,6 +18,18 @@ class UserController extends Controller
     public function index()
     {
         //
+    }
+    public function dashboard()
+    {
+        // Ambil pengguna yang sedang login
+        $user = Auth::user();
+
+        // Cek apakah pengguna tergabung dalam grup
+        $userGroup = GroupMember::with('group')
+            ->where('user_id', $user->id)
+            ->first();
+
+        return view('userpage.dashboard', compact('user', 'userGroup'));
     }
 
     /**

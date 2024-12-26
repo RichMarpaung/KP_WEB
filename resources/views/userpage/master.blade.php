@@ -166,6 +166,15 @@
                                 </ul><!--end nav-->
                             </div><!--end startbarApplications-->
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="/" role="button" aria-expanded="false" aria-controls="sidebarMaps">
+                                <i class="iconoir-home menu-icon"></i>
+                                <span>Dashboard</span>
+                            </a>
+
+                        </li>
+
                         @endif
                         <li class="nav-item">
                             <a class="nav-link" href="javascript:void(0);" onclick="getUserLocation()" role="button" aria-expanded="false"
@@ -181,9 +190,20 @@
                                 <div class="border_left hidden-xs"></div>
                                 <div class="border_right"></div>
                             </small>
-                            <span>Components</span>
+                            <span>Pengajuan</span>
                         </li>
 
+                        @if (Auth::user()->role->name === 'admin')
+
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="/team" role="button" aria-expanded="false" aria-controls="sidebarMaps">
+                                <i class="iconoir-profile-circle menu-icon"></i>
+                                <span>Team</span>
+                            </a>
+
+                        </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarForms">

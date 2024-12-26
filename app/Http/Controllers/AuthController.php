@@ -42,7 +42,7 @@ class AuthController extends Controller
 
         Session::flash('status', 'field');
         Session::flash('massage', 'Periksa Email dan Password Anda');
-        return view('login');
+        return view('loginpage.login');
     }
     public function logout(Request $request): RedirectResponse
     {

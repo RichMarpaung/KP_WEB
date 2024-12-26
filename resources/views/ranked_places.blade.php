@@ -37,6 +37,7 @@
                 <th>deskripsi</th>
                 <th>Rating</th>
                 <th>Jarak (km)</th>
+                <th>Total</th>
                 <th>Skor</th>
             </tr>
         </thead>
@@ -50,6 +51,7 @@
                     <td>{{ number_format($place['distance'], 2) }}</td>
                     {{-- <td>{{ str_replace(',', '_', number_format($place['distance'], 2)) }}</td> --}}
 
+                    <td>{{ $place['total_review'] }}</td>
                     <td>{{ number_format($place['score'], 5) }}</td>
                 </tr>
             @endforeach

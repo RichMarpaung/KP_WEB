@@ -91,15 +91,15 @@
 
                                 </ul>
                             </div><!--end card-body-->
-                            <div class="card-body">
+                            {{-- <div class="card-body">
                                 <div class="row">
                                     <div class="col">
                                         <p class="text-dark fw-semibold mb-0">Leave a comment</p>
                                     </div><!--end col-->
                                 </div><!--end row-->
-                            </div><!--end card-body-->
+                            </div><!--end card-body--> --}}
                             <div class="card-body pt-0">
-                                <form method="POST" action="{{ route('store.coment') }}" enctype="multipart/form-data">
+                                {{-- <form method="POST" action="{{ route('store.coment') }}" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="place_id" value="{{ $place->id }}">
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -134,7 +134,7 @@
                                             <button type="submit" class="btn btn-primary px-4">Send Message</button>
                                         </div>
                                     </div>
-                                </form>
+                                </form> --}}
                             </div><!--end card-body-->
                         </div> <!--end card-->
                     </div>

@@ -42,7 +42,7 @@
                                         <form action="{{ route('admin.user.delete', $item->id) }}" method="POST" class="d-inline m-2">
                                             @csrf
                                             @method('POST')
-                                            <button type="submit" class="btn p-0 border-0 bg-transparent">
+                                            <button type="button" class="btn p-0 border-0 bg-transparent" onclick="confirmDelete({{ $item->id }})">
                                                 <i class="las la-trash-alt text-secondary font-16 text-danger"></i>
                                             </button>
                                         </form>
@@ -61,4 +61,31 @@
 </div></div></div>
 
 </div><!-- container -->
+@if(session('success'))
+    <script>
+        window.onload = function() {
+            executeExample('success');
+        }
+    </script>
+@endif
+
+<script>
+    function confirmDelete(itemId) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data ini akan dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika konfirmasi, kirim form
+                document.getElementById('delete-form-' + itemId).submit();
+            }
+        });
+    }
+</script>
+
 @endsection

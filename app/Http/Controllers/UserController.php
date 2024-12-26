@@ -31,6 +31,18 @@ class UserController extends Controller
 
         return view('userpage.dashboard', compact('user', 'userGroup'));
     }
+    public function team()
+    {
+        // Ambil pengguna yang sedang login
+        $user = Auth::user();
+
+        // Cek apakah pengguna tergabung dalam grup
+        $userGroup = GroupMember::with('group')
+            ->where('user_id', $user->id)
+            ->first();
+
+        return view('userpage.team', compact('user', 'userGroup'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -124,31 +136,27 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
-
-            'password' => 'nullable|string|min:8',
+            'password' => 'nullable|string', // Password bersifat opsional
         ]);
 
-        // Cari user berdasarkan ID
         $user = User::findOrFail($id);
 
-        // Update data user
         $user->name = $request->input('name');
         $user->email = $request->input('email');
 
-        // Update password hanya jika ada input baru
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
 
-        // Simpan perubahan ke database
         $user->save();
-        // Redirect ke halaman daftar produk
-        return redirect(route('admin.user.list'))->with('success', 'Data produk berhasil diperbarui');
+
+        return redirect(route('admin.user.list'))->with('success', 'Data pengguna berhasil diperbarui');
     }
+
+
     /**
      * Remove the specified resource from storage.
      */

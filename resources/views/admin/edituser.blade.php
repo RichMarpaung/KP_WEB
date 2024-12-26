@@ -7,7 +7,7 @@
 <div class="container-xxl">
 <form action="{{ route('admin.user.update',$user->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('POST')
+    @method('PUT')
     <div class="container-xxl">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-6">
@@ -40,6 +40,11 @@
                                    placeholder="Enter Email" name="email"
                                    value="{{ old('email', $user->email) }}">
                         </div>
+                        <div class="mb-2">
+                            <label for="password" class="form-label">New Password (Optional)</label>
+                            <input class="form-control" type="password" id="password"
+                                   placeholder="Enter New Password" name="password">
+                        </div>
                         {{-- <div class="mb-2">
                             <label for="password" class="form-label">password</label>
                             <input class="form-control" type="text" id="password"
@@ -47,6 +52,9 @@
                                    value="{{ old('password', $user->password) }}">
                         </div> --}}
 
+                        @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
 
 
 
@@ -60,4 +68,7 @@
         </div><!--end row-->
     </div>
 </form></div></div></div>
+
+
+
 @endsection

@@ -20,6 +20,8 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/libs/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -292,6 +294,8 @@
         <script src="{{ asset('assets/libs/jsvectormap/maps/world.js') }}"></script>
         <script src="{{ asset('assets/js/pages/index.init.js') }}"></script>
         <script src="{{ asset('assets/js/app.js') }}"></script>
+        <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/sweet-alert.init.js') }}"></script>
 
         <script>
             // Fungsi untuk mendapatkan lokasi pengguna

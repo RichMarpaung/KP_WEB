@@ -32,7 +32,13 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
-            return redirect()->intended('/');
+
+            if($user->role->name == 'admin'){
+                return redirect()->intended('/admin');
+            }
+            else{
+                return redirect()->intended('/');
+            }
 
 
         }

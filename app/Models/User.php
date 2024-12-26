@@ -18,6 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
    protected $guarded = ['id'];
+   protected $fillable = ['name', 'email', 'password'];
+
     public function role()
     {
         return $this->belongsTo(Role::class);

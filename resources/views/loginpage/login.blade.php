@@ -90,7 +90,11 @@
                                         <button type="submit" class="btn btn-primary w-100">Login</button>
 
                                     </form>
-
+                                    @if (Session::has('status') && Session::get('status') === 'field')
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        {{ Session::get('massage') }}
+                                    </div>
+                                @endif
                                     {{-- <div class="text-center  mb-2">
                                         <p class="text-muted">Don't have an account ?  <a href="/register" class="text-primary ms-2">Free Resister</a></p>
                                     </div> --}}

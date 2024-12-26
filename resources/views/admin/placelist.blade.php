@@ -10,12 +10,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h4 class="card-title">Customers Details</h4>
-                        </div><!--end col-->
-                    </div>  <!--end row-->
-                </div><!--end card-header-->
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Place List</h4>
+                        <button type="button" class="btn btn-primary ms-auto">Add Place</button>
+                    </div>
+                </div>
+
                 <div class="card-body pt-0">
                     <div class="table-responsive">
                         <table class="table datatable" id="datatable_1">
@@ -48,24 +48,30 @@
                                     <td>{{ $item->description }}</td>
                                     <td>⭐{{ number_format($item->reviews_avg_rating, 1) }}</td>
 
-                                    @if (Auth::user()->role->name === 'admin')
-                                    <td class="text-end">
 
-                                        <a href="#"><i class="las la-pen text-secondary font-16 text-info"></i></a>
-                                        <form action="{{ route('admin.place.delete', $item->id) }}" method="POST" class="d-inline m-2">
-                                            @csrf
-                                            @method('POST')
-                                            <button type="submit" class="btn p-0 border-0 bg-transparent">
-                                                <i class="las la-trash-alt text-secondary font-16 text-danger"></i>
-                                            </button>
-                                        </form>
+                                    <td class="text-end">
+                                        <div class="d-flex justify-content-end align-items-center gap-2">
+                                            <a href="#" class="btn p-0 border-0 bg-transparent">
+                                                <i class="las la-pen text-secondary font-16 text-info"></i>
+                                            </a>
+                                            <form action="{{ route('admin.place.delete', $item->id) }}" method="POST" id="deleteForm{{ $item->id }}" class="d-inline m-2">
+                                                @csrf
+                                                @method('DELETE')  <!-- Mengubah POST menjadi DELETE -->
+                                                <button type="button" class="btn p-0 border-0 bg-transparent" onclick="confirmDelete({{ $item->id }})">
+                                                    <i class="las la-trash-alt text-secondary font-16 text-danger"></i>
+                                                </button>
+                                            </form>
+
+
+                                        </div>
                                     </td>
-                                    @endif
+
                                 </tr>
                                 @endforeach
 
                             </tbody>
                           </table>
+
                     </div>
                 </div><!--end card-body-->
             </div><!--end card-->
@@ -75,4 +81,24 @@
 
 
 </div><!-- container -->
+<script>
+function confirmDelete(id) {
+    console.log(id);  // Untuk memeriksa apakah ID sudah benar
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Anda tidak dapat mengembalikan data ini setelah dihapus!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Jika konfirmasi diambil, kirim form penghapusan
+            document.getElementById('deleteForm' + id).submit();
+        }
+    });
+}
+</script>
+
 @endsection

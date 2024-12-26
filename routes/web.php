@@ -20,7 +20,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/user',[UserController::class, 'show'])->name('user.list')->middleware(['auth',MustAdmin::class]);
     Route::get('/edit/{id}/user',[UserController::class, 'edit'])->name('user.edit')->middleware(['auth',MustAdmin::class]);
-    Route::post('/update/{id}/user',[UserController::class, 'update'])->name('user.update')->middleware(['auth',MustAdmin::class]);
+    Route::put('/update/{id}/user',[UserController::class, 'update'])->name('user.update')->middleware(['auth',MustAdmin::class]);
     Route::post('/delete/{id}/user',[UserController::class, 'destroy'])->name('user.delete')->middleware(['auth',MustAdmin::class]);
     Route::get('/create-user',[UserController::class, 'create'])->name('user.create')->middleware(['auth',MustAdmin::class]);
     // Route::post('/create-user',[UserController::class, 'storeFromAdmin'])->name('user.upload');
@@ -29,7 +29,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/place',[AdminController::class, 'placelist'])->name('place.list')->middleware(['auth',MustAdmin::class]);
     Route::get('/create-place',[AdminController::class, 'placecreate'])->name('place.create')->middleware(['auth',MustAdmin::class]);
     Route::post('/create-place',[PlaceController::class, 'store'])->name('place.store')->middleware(['auth',MustAdmin::class]);
-    Route::post('/delete/{id}/place',[PlaceController::class, 'destroy'])->name('place.delete')->middleware(['auth',MustAdmin::class]);
+    Route::delete('/delete/{id}/place',[PlaceController::class, 'destroy'])->name('place.delete')->middleware(['auth',MustAdmin::class]);
+    // Route::delete('/delete/{id}/place', [PlaceController::class, 'destroy'])->name('admin.user.delete')->middleware(['auth', MustAdmin::class]);
+
 })->middleware(['auth',MustAdmin::class]);
 
 
@@ -44,10 +46,11 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // User Route
-// Route::get('/', function () {
-//     return view('userpage.dashboard');
+// Route::get('/team', function () {
+//     return view('userpage.team');
 // })->middleware('auth');
 Route::get('/', [UserController::class, 'dashboard'])->middleware('auth');
+Route::get('/team', [UserController::class, 'team'])->middleware('auth');
 Route::get('/list-places', [LocationController::class, 'listplaces']);
 Route::get('/ranked-places', [LocationController::class, 'showRankedPlaces']);
 Route::get('/review/{id}', [ReviewController::class, 'show'])->name('review_tempat');

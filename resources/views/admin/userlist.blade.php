@@ -39,7 +39,7 @@
                                     <td>{{ $item->password }}</td>
                                     <td class="text-end">
                                         <a href="{{ route('admin.user.edit', $item->id) }}"><i class="las la-pen text-secondary font-16 text-info"></i></a>
-                                        <form action="{{ route('admin.user.delete', $item->id) }}" method="POST" class="d-inline m-2">
+                                        <form action="{{ route('admin.user.delete', $item->id) }}" id="deleteForm{{ $item->id }}" method="POST" class="d-inline m-2">
                                             @csrf
                                             @method('POST')
                                             <button type="button" class="btn p-0 border-0 bg-transparent" onclick="confirmDelete({{ $item->id }})">
@@ -69,23 +69,37 @@
     </script>
 @endif
 
-<script>
-    function confirmDelete(itemId) {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Data ini akan dihapus!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Hapus!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Jika konfirmasi, kirim form
-                document.getElementById('delete-form-' + itemId).submit();
-            }
+@if(session('success'))
+    <script>
+        window.onload = function() {
+            Swal.fire({
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
         });
-    }
+        }
+    </script>
+@endif
+<script>
+function confirmDelete(id) {
+    console.log(id);  // Untuk memeriksa apakah ID sudah benar
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Anda tidak dapat mengembalikan data ini setelah dihapus!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Jika konfirmasi diambil, kirim form penghapusan
+            document.getElementById('deleteForm' + id).submit();
+        }
+    });
+}
 </script>
 
 @endsection

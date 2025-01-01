@@ -33,7 +33,7 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
-            if($user->role->name == 'admin'){
+            if($user->role_id == 1){
                 return redirect()->intended('/admin');
             }
             else{

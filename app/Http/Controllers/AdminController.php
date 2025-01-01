@@ -28,13 +28,13 @@ class AdminController extends Controller
     public function upload(Request $request)
     {
         $validasi = $request->validate(
-            ['name'=>'required',
-            'email' => 'required',
-            'password'=> 'required',
-            'role_id'=> 'required',
-            'status'=> 'required',
-            'confirm_password' => 'required',
+            [ 'name' => 'required',
+            'email' => 'required|email|unique:users,email', // Tambahkan validasi unique
+            'password' => 'required|min:6',
+            'confirm_password' => 'required|same:password', // Pastikan confirm_password sama dengan password
+            'role_id' => 'required|exists:roles,id'
         ]);
+        // dd($request->role_id);
         if(!$validasi ){
             Session::flash('status', 'field');
             Session::flash('massage', 'Periksa Data Anda Kembali');
@@ -47,17 +47,27 @@ class AdminController extends Controller
             return redirect(route('admin.user.create'))->with('Gagal', 'Data gagal ');
             // return view('loginPage.register');
         }
+        $role = 0;
+        if($request->role_id == "1"){
+            $role = 1;
+        }if($request->role_id == "2"){
+            $role = 2;
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'role_id' => $request->role_id,
-            'status' =>$request->status,
+            'phone' => $request->phone,
+            'role_id' => $role,
+            'status' =>'Belum',
             'password' =>Hash::make($request->password) ,
         ]);
         Session::flash('status', 'success');
         Session::flash('massage', 'Akun Berhasil Didaftarkan Silahkan Login!');
         return redirect(route('admin.user.list'))->with('success', 'Data produk berhasil diperbarui');
     }
+
+
     public function dashboard()
     {
         $user = User::count();

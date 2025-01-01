@@ -81,6 +81,19 @@
 
 
 </div><!-- container -->
+@if(session('success'))
+    <script>
+        window.onload = function() {
+            Swal.fire({
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+        });
+        }
+    </script>
+@endif
 <script>
 function confirmDelete(id) {
     console.log(id);  // Untuk memeriksa apakah ID sudah benar
